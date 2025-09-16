@@ -243,7 +243,7 @@ async function benchmarkErc721Owners(
 	let pages = 0;
 	const perPage: BenchmarkPageTiming[] = [];
 	const started = performance.now();
-	const uniqueOwners = new Set<string>(); // Track unique owner addresses across all pages
+	const ownerCounts = new Map<string, number>(); // Track owner addresses and their NFT counts
 	for (;;) {
 		const t0 = performance.now();
 		console.log(`  Fetching page ${page} for ERC721 owners...`);
@@ -256,14 +256,17 @@ async function benchmarkErc721Owners(
 		const t1 = performance.now();
 		console.log(`  Page ${page} completed in ${(t1 - t0).toFixed(0)}ms`);
 		
-		// Count unique owners from API response
+		// Count owners and their NFT counts from API response
 		// NFT owners endpoint returns object with data array containing owner records
 		let items = 0;
 		if (json?.data && Array.isArray(json.data)) {
-			// Add each unique owner_address to the Set
+			// Count NFTs per owner
 			for (const record of json.data) {
 				if (record.owner_address) {
-					uniqueOwners.add(record.owner_address.toLowerCase());
+					const ownerAddr = record.owner_address.toLowerCase();
+					const currentCount = ownerCounts.get(ownerAddr) || 0;
+					const balance = parseInt(record.balance || '1', 10); // Use balance field or default to 1
+					ownerCounts.set(ownerAddr, currentCount + balance);
 				}
 			}
 			items = json.data.length; // Raw records on this page
@@ -272,7 +275,7 @@ async function benchmarkErc721Owners(
 			debugApiResponse(json, url);
 		}
 		
-		console.log(`  Page ${page}: got ${items} records, unique owners: ${uniqueOwners.size}, total records so far: ${totalItems + items}`);
+		console.log(`  Page ${page}: got ${items} records, unique owners: ${ownerCounts.size}, total records so far: ${totalItems + items}`);
 		
 		perPage.push({ page: page + 1, items, ms: t1 - t0, url }); // Display as 1-based for user
 		totalItems += items;
@@ -305,12 +308,21 @@ async function benchmarkErc721Owners(
 	}
 	const ended = performance.now();
 	
+	// Print all owners with their NFT counts in CSV format
+	console.log(`\n  === Owner Balances CSV for ${collectionAddress} (${ownerCounts.size} total owners) ===`);
+	console.log(`owner_address,total_owned`);
+	const sortedOwners = Array.from(ownerCounts.entries()).sort((a, b) => a[0].localeCompare(b[0]));
+	sortedOwners.forEach(([owner, count]) => {
+		console.log(`${owner},${count}`);
+	});
+	console.log(`  === End of CSV ===\n`);
+	
 	// Validate against expected data using unique owner count
 	const contractKey = collectionAddress.toLowerCase();
 	const expectedCount = expectedData.tokenOwners[contractKey];
 	let validation: ValidationResult | undefined;
 	if (expectedCount !== undefined) {
-		validation = validateCount(expectedCount, uniqueOwners.size);
+		validation = validateCount(expectedCount, ownerCounts.size);
 	}
 	
 	return {
@@ -318,7 +330,7 @@ async function benchmarkErc721Owners(
 		chainId,
 		endpoint: '/nfts/owners/{address}',
 		description: 'ERC721 collection owners with balances',
-		totalItems: uniqueOwners.size, // Return unique owner count, not total records
+		totalItems: ownerCounts.size, // Return unique owner count, not total records
 		pages,
 		totalMs: ended - started,
 		perPage,
