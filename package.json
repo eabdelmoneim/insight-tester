@@ -1,0 +1,38 @@
+{
+  "name": "insight-tester",
+  "version": "1.0.0",
+  "description": "Benchmarking tool for thirdweb Insight API endpoints",
+  "main": "benchmark.ts",
+  "scripts": {
+    "benchmark": "tsx benchmark.ts",
+    "benchmark:incremental": "tsx benchmark.ts --mode incremental --sinceHours 24",
+    "benchmark:initial": "tsx benchmark.ts --mode initial",
+    "benchmark:fast": "tsx benchmark.ts --limit 100 --sleepMs 0",
+    "build": "tsc --noEmit",
+    "lint": "eslint benchmark.ts",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": [
+    "thirdweb",
+    "insight",
+    "api",
+    "benchmark",
+    "performance",
+    "nft",
+    "erc20",
+    "erc721"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
