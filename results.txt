@@ -1,0 +1,345 @@
+
+> insight-tester@1.0.0 benchmark:initial
+> tsx benchmark.ts --mode initial
+
+Loaded 15 collections from /Users/eimanabdelmoneim/Development/thirdweb/solutions/insight-tester/collections.csv
+Base URL: https://insight.thirdweb.com/v1
+Mode: initial  sinceHours: 24  limit: 1000  sort: desc  sleepMs: 0
+Loaded 15 expected token owner counts
+Loaded 7 expected NFT transfer counts
+
+---- Processing ERC20 0x1c26da604221466976beeb509698152ba8a3a13f on chain 2741 ----
+
+============================================================
+Contract: 0x1c26da604221466976beeb509698152ba8a3a13f  Chain: 2741
+Endpoint: /tokens/owners
+Description: ERC20 token holders
+Total items: 4988  Pages: 5  Total time: 1725.86 ms
+❌ VALIDATION FAILED: Expected 4993, got 4988 (difference: -5)
+  Page 1: items=1000 time=911.81 ms  url=https://insight.thirdweb.com/v1/tokens/owners?chain_id=2741&contract_address=0x1c26da604221466976beeb509698152ba8a3a13f&limit=1000&page=0
+  Page 2: items=1000 time=264.34 ms  url=https://insight.thirdweb.com/v1/tokens/owners?chain_id=2741&contract_address=0x1c26da604221466976beeb509698152ba8a3a13f&limit=1000&page=1
+  Page 3: items=1000 time=187.35 ms  url=https://insight.thirdweb.com/v1/tokens/owners?chain_id=2741&contract_address=0x1c26da604221466976beeb509698152ba8a3a13f&limit=1000&page=2
+  Page 4: items=1000 time=177.39 ms  url=https://insight.thirdweb.com/v1/tokens/owners?chain_id=2741&contract_address=0x1c26da604221466976beeb509698152ba8a3a13f&limit=1000&page=3
+  Page 5: items=988 time=184.93 ms  url=https://insight.thirdweb.com/v1/tokens/owners?chain_id=2741&contract_address=0x1c26da604221466976beeb509698152ba8a3a13f&limit=1000&page=4
+
+---- Processing ERC20 0x1cd6edb761ed1d68c3cc3c5b9b3e9460887fd139 on chain 2741 ----
+
+============================================================
+Contract: 0x1cd6edb761ed1d68c3cc3c5b9b3e9460887fd139  Chain: 2741
+Endpoint: /tokens/owners
+Description: ERC20 token holders
+Total items: 2727  Pages: 3  Total time: 528.27 ms
+❌ VALIDATION FAILED: Expected 2719, got 2727 (difference: +8)
+  Page 1: items=1000 time=177.44 ms  url=https://insight.thirdweb.com/v1/tokens/owners?chain_id=2741&contract_address=0x1cd6edb761ed1d68c3cc3c5b9b3e9460887fd139&limit=1000&page=0
+  Page 2: items=1000 time=188.37 ms  url=https://insight.thirdweb.com/v1/tokens/owners?chain_id=2741&contract_address=0x1cd6edb761ed1d68c3cc3c5b9b3e9460887fd139&limit=1000&page=1
+  Page 3: items=727 time=162.45 ms  url=https://insight.thirdweb.com/v1/tokens/owners?chain_id=2741&contract_address=0x1cd6edb761ed1d68c3cc3c5b9b3e9460887fd139&limit=1000&page=2
+
+---- Processing ERC721 0x2b21d07c98905f48a71100af2b58c069be4d0a2a on chain 2741 ----
+
+============================================================
+Contract: 0x2b21d07c98905f48a71100af2b58c069be4d0a2a  Chain: 2741
+Endpoint: /nfts/owners/{address}
+Description: ERC721 collection owners with balances
+Total items: 9458  Pages: 10  Total time: 2279.78 ms
+❌ VALIDATION FAILED: Expected 1930, got 9458 (difference: +7528)
+  Page 1: items=1000 time=208.98 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x2b21d07c98905f48a71100af2b58c069be4d0a2a?chain_id=2741&limit=1000&page=0&include_balances=true
+  Page 2: items=1000 time=211.07 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x2b21d07c98905f48a71100af2b58c069be4d0a2a?chain_id=2741&limit=1000&page=1&include_balances=true
+  Page 3: items=1000 time=231.95 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x2b21d07c98905f48a71100af2b58c069be4d0a2a?chain_id=2741&limit=1000&page=2&include_balances=true
+  Page 4: items=1000 time=206.49 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x2b21d07c98905f48a71100af2b58c069be4d0a2a?chain_id=2741&limit=1000&page=3&include_balances=true
+  Page 5: items=1000 time=423.69 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x2b21d07c98905f48a71100af2b58c069be4d0a2a?chain_id=2741&limit=1000&page=4&include_balances=true
+  Page 6: items=1000 time=200.32 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x2b21d07c98905f48a71100af2b58c069be4d0a2a?chain_id=2741&limit=1000&page=5&include_balances=true
+  Page 7: items=1000 time=196.41 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x2b21d07c98905f48a71100af2b58c069be4d0a2a?chain_id=2741&limit=1000&page=6&include_balances=true
+  Page 8: items=1000 time=192.67 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x2b21d07c98905f48a71100af2b58c069be4d0a2a?chain_id=2741&limit=1000&page=7&include_balances=true
+  Page 9: items=1000 time=219.70 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x2b21d07c98905f48a71100af2b58c069be4d0a2a?chain_id=2741&limit=1000&page=8&include_balances=true
+  Page 10: items=458 time=188.29 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x2b21d07c98905f48a71100af2b58c069be4d0a2a?chain_id=2741&limit=1000&page=9&include_balances=true
+
+============================================================
+Contract: 0x2b21d07c98905f48a71100af2b58c069be4d0a2a  Chain: 2741
+Endpoint: /nfts/transfers
+Description: ERC721 all transfers (initial)
+Total items: 1544  Pages: 2  Total time: 1372.28 ms
+❌ VALIDATION FAILED: Expected 13239, got 1544 (difference: -11695)
+Meta: {"sortOrder":"desc","mode":"initial","sinceHours":24}
+  Page 1: items=1000 time=735.89 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=2741&contract_address=0x2b21d07c98905f48a71100af2b58c069be4d0a2a&limit=1000&sort_order=desc&block_number_from=1&page=0
+  Page 2: items=544 time=636.31 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=2741&contract_address=0x2b21d07c98905f48a71100af2b58c069be4d0a2a&limit=1000&sort_order=desc&block_number_from=1&page=1
+
+---- Processing ERC20 0x3d72ddd35cadb4e5b22cdb20b36f98077be84284 on chain 2741 ----
+
+============================================================
+Contract: 0x3d72ddd35cadb4e5b22cdb20b36f98077be84284  Chain: 2741
+Endpoint: /tokens/owners
+Description: ERC20 token holders
+Total items: 3734  Pages: 4  Total time: 1223.90 ms
+❌ VALIDATION FAILED: Expected 3740, got 3734 (difference: -6)
+  Page 1: items=1000 time=173.24 ms  url=https://insight.thirdweb.com/v1/tokens/owners?chain_id=2741&contract_address=0x3d72ddd35cadb4e5b22cdb20b36f98077be84284&limit=1000&page=0
+  Page 2: items=1000 time=621.06 ms  url=https://insight.thirdweb.com/v1/tokens/owners?chain_id=2741&contract_address=0x3d72ddd35cadb4e5b22cdb20b36f98077be84284&limit=1000&page=1
+  Page 3: items=1000 time=168.74 ms  url=https://insight.thirdweb.com/v1/tokens/owners?chain_id=2741&contract_address=0x3d72ddd35cadb4e5b22cdb20b36f98077be84284&limit=1000&page=2
+  Page 4: items=734 time=260.25 ms  url=https://insight.thirdweb.com/v1/tokens/owners?chain_id=2741&contract_address=0x3d72ddd35cadb4e5b22cdb20b36f98077be84284&limit=1000&page=3
+
+---- Processing ERC721 0x487d52e1e07c0f39c4a3b78a53ac0953cd90db9b on chain 2741 ----
+
+============================================================
+Contract: 0x487d52e1e07c0f39c4a3b78a53ac0953cd90db9b  Chain: 2741
+Endpoint: /nfts/owners/{address}
+Description: ERC721 collection owners with balances
+Total items: 1489  Pages: 2  Total time: 527.09 ms
+❌ VALIDATION FAILED: Expected 776, got 1489 (difference: +713)
+  Page 1: items=1000 time=317.14 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x487d52e1e07c0f39c4a3b78a53ac0953cd90db9b?chain_id=2741&limit=1000&page=0&include_balances=true
+  Page 2: items=489 time=209.92 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x487d52e1e07c0f39c4a3b78a53ac0953cd90db9b?chain_id=2741&limit=1000&page=1&include_balances=true
+
+============================================================
+Contract: 0x487d52e1e07c0f39c4a3b78a53ac0953cd90db9b  Chain: 2741
+Endpoint: /nfts/transfers
+Description: ERC721 all transfers (initial)
+Total items: 4185  Pages: 5  Total time: 1738.24 ms
+❌ VALIDATION FAILED: Expected 4195, got 4185 (difference: -10)
+Meta: {"sortOrder":"desc","mode":"initial","sinceHours":24}
+  Page 1: items=1000 time=347.30 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=2741&contract_address=0x487d52e1e07c0f39c4a3b78a53ac0953cd90db9b&limit=1000&sort_order=desc&block_number_from=1&page=0
+  Page 2: items=1000 time=395.86 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=2741&contract_address=0x487d52e1e07c0f39c4a3b78a53ac0953cd90db9b&limit=1000&sort_order=desc&block_number_from=1&page=1
+  Page 3: items=1000 time=342.21 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=2741&contract_address=0x487d52e1e07c0f39c4a3b78a53ac0953cd90db9b&limit=1000&sort_order=desc&block_number_from=1&page=2
+  Page 4: items=1000 time=377.51 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=2741&contract_address=0x487d52e1e07c0f39c4a3b78a53ac0953cd90db9b&limit=1000&sort_order=desc&block_number_from=1&page=3
+  Page 5: items=185 time=275.23 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=2741&contract_address=0x487d52e1e07c0f39c4a3b78a53ac0953cd90db9b&limit=1000&sort_order=desc&block_number_from=1&page=4
+
+---- Processing ERC721 0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240 on chain 33139 ----
+
+============================================================
+Contract: 0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240  Chain: 33139
+Endpoint: /nfts/owners/{address}
+Description: ERC721 collection owners with balances
+Total items: 6652  Pages: 7  Total time: 1293.75 ms
+❌ VALIDATION FAILED: Expected 1615, got 6652 (difference: +5037)
+  Page 1: items=1000 time=214.52 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240?chain_id=33139&limit=1000&page=0&include_balances=true
+  Page 2: items=1000 time=181.56 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240?chain_id=33139&limit=1000&page=1&include_balances=true
+  Page 3: items=1000 time=195.59 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240?chain_id=33139&limit=1000&page=2&include_balances=true
+  Page 4: items=1000 time=157.64 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240?chain_id=33139&limit=1000&page=3&include_balances=true
+  Page 5: items=1000 time=207.31 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240?chain_id=33139&limit=1000&page=4&include_balances=true
+  Page 6: items=1000 time=171.71 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240?chain_id=33139&limit=1000&page=5&include_balances=true
+  Page 7: items=652 time=165.31 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240?chain_id=33139&limit=1000&page=6&include_balances=true
+
+============================================================
+Contract: 0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240  Chain: 33139
+Endpoint: /nfts/transfers
+Description: ERC721 all transfers (initial)
+Total items: 21476  Pages: 22  Total time: 12845.24 ms
+❌ VALIDATION FAILED: Expected 21589, got 21476 (difference: -113)
+Meta: {"sortOrder":"desc","mode":"initial","sinceHours":24}
+  Page 1: items=1000 time=502.04 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240&limit=1000&sort_order=desc&block_number_from=1&page=0
+  Page 2: items=1000 time=1055.54 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240&limit=1000&sort_order=desc&block_number_from=1&page=1
+  Page 3: items=1000 time=548.07 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240&limit=1000&sort_order=desc&block_number_from=1&page=2
+  Page 4: items=1000 time=509.07 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240&limit=1000&sort_order=desc&block_number_from=1&page=3
+  Page 5: items=1000 time=543.97 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240&limit=1000&sort_order=desc&block_number_from=1&page=4
+  Page 6: items=1000 time=515.94 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240&limit=1000&sort_order=desc&block_number_from=1&page=5
+  Page 7: items=1000 time=524.85 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240&limit=1000&sort_order=desc&block_number_from=1&page=6
+  Page 8: items=1000 time=1101.62 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240&limit=1000&sort_order=desc&block_number_from=1&page=7
+  Page 9: items=1000 time=560.94 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240&limit=1000&sort_order=desc&block_number_from=1&page=8
+  Page 10: items=1000 time=508.51 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240&limit=1000&sort_order=desc&block_number_from=1&page=9
+  Page 11: items=1000 time=557.99 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240&limit=1000&sort_order=desc&block_number_from=1&page=10
+  Page 12: items=1000 time=487.70 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240&limit=1000&sort_order=desc&block_number_from=1&page=11
+  Page 13: items=1000 time=523.61 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240&limit=1000&sort_order=desc&block_number_from=1&page=12
+  Page 14: items=1000 time=582.03 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240&limit=1000&sort_order=desc&block_number_from=1&page=13
+  Page 15: items=1000 time=758.94 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240&limit=1000&sort_order=desc&block_number_from=1&page=14
+  Page 16: items=1000 time=533.65 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240&limit=1000&sort_order=desc&block_number_from=1&page=15
+  Page 17: items=1000 time=489.64 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240&limit=1000&sort_order=desc&block_number_from=1&page=16
+  Page 18: items=1000 time=513.76 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240&limit=1000&sort_order=desc&block_number_from=1&page=17
+  Page 19: items=1000 time=545.70 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240&limit=1000&sort_order=desc&block_number_from=1&page=18
+  Page 20: items=1000 time=499.67 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240&limit=1000&sort_order=desc&block_number_from=1&page=19
+  Page 21: items=1000 time=505.79 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240&limit=1000&sort_order=desc&block_number_from=1&page=20
+  Page 22: items=476 time=475.40 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240&limit=1000&sort_order=desc&block_number_from=1&page=21
+
+---- Processing ERC721 0x0291e6c2094fb96628732a707be55a54b4228b5f on chain 33139 ----
+
+============================================================
+Contract: 0x0291e6c2094fb96628732a707be55a54b4228b5f  Chain: 33139
+Endpoint: /nfts/owners/{address}
+Description: ERC721 collection owners with balances
+Total items: 3333  Pages: 4  Total time: 716.33 ms
+❌ VALIDATION FAILED: Expected 816, got 3333 (difference: +2517)
+  Page 1: items=1000 time=197.10 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x0291e6c2094fb96628732a707be55a54b4228b5f?chain_id=33139&limit=1000&page=0&include_balances=true
+  Page 2: items=1000 time=164.54 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x0291e6c2094fb96628732a707be55a54b4228b5f?chain_id=33139&limit=1000&page=1&include_balances=true
+  Page 3: items=1000 time=202.25 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x0291e6c2094fb96628732a707be55a54b4228b5f?chain_id=33139&limit=1000&page=2&include_balances=true
+  Page 4: items=333 time=152.42 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x0291e6c2094fb96628732a707be55a54b4228b5f?chain_id=33139&limit=1000&page=3&include_balances=true
+
+============================================================
+Contract: 0x0291e6c2094fb96628732a707be55a54b4228b5f  Chain: 33139
+Endpoint: /nfts/transfers
+Description: ERC721 all transfers (initial)
+Total items: 7528  Pages: 8  Total time: 4010.46 ms
+❌ VALIDATION FAILED: Expected 7702, got 7528 (difference: -174)
+Meta: {"sortOrder":"desc","mode":"initial","sinceHours":24}
+  Page 1: items=1000 time=494.12 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0291e6c2094fb96628732a707be55a54b4228b5f&limit=1000&sort_order=desc&block_number_from=1&page=0
+  Page 2: items=1000 time=477.90 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0291e6c2094fb96628732a707be55a54b4228b5f&limit=1000&sort_order=desc&block_number_from=1&page=1
+  Page 3: items=1000 time=478.12 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0291e6c2094fb96628732a707be55a54b4228b5f&limit=1000&sort_order=desc&block_number_from=1&page=2
+  Page 4: items=1000 time=516.65 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0291e6c2094fb96628732a707be55a54b4228b5f&limit=1000&sort_order=desc&block_number_from=1&page=3
+  Page 5: items=1000 time=495.30 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0291e6c2094fb96628732a707be55a54b4228b5f&limit=1000&sort_order=desc&block_number_from=1&page=4
+  Page 6: items=1000 time=600.00 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0291e6c2094fb96628732a707be55a54b4228b5f&limit=1000&sort_order=desc&block_number_from=1&page=5
+  Page 7: items=1000 time=486.14 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0291e6c2094fb96628732a707be55a54b4228b5f&limit=1000&sort_order=desc&block_number_from=1&page=6
+  Page 8: items=528 time=462.15 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0291e6c2094fb96628732a707be55a54b4228b5f&limit=1000&sort_order=desc&block_number_from=1&page=7
+
+---- Processing ERC721 0x093414b375ece9ef24dfa3aa34ab14a4b4c244c9 on chain 33139 ----
+
+============================================================
+Contract: 0x093414b375ece9ef24dfa3aa34ab14a4b4c244c9  Chain: 33139
+Endpoint: /nfts/owners/{address}
+Description: ERC721 collection owners with balances
+Total items: 3333  Pages: 4  Total time: 742.53 ms
+❌ VALIDATION FAILED: Expected 486, got 3333 (difference: +2847)
+  Page 1: items=1000 time=169.71 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x093414b375ece9ef24dfa3aa34ab14a4b4c244c9?chain_id=33139&limit=1000&page=0&include_balances=true
+  Page 2: items=1000 time=267.22 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x093414b375ece9ef24dfa3aa34ab14a4b4c244c9?chain_id=33139&limit=1000&page=1&include_balances=true
+  Page 3: items=1000 time=152.59 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x093414b375ece9ef24dfa3aa34ab14a4b4c244c9?chain_id=33139&limit=1000&page=2&include_balances=true
+  Page 4: items=333 time=153.00 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x093414b375ece9ef24dfa3aa34ab14a4b4c244c9?chain_id=33139&limit=1000&page=3&include_balances=true
+
+---- Processing ERC721 0x09cc2837da731d487ba5a7789ea7f35e20aa9fcf on chain 33139 ----
+
+============================================================
+Contract: 0x09cc2837da731d487ba5a7789ea7f35e20aa9fcf  Chain: 33139
+Endpoint: /nfts/owners/{address}
+Description: ERC721 collection owners with balances
+Total items: 176  Pages: 1  Total time: 707.72 ms
+❌ VALIDATION FAILED: Expected 132, got 176 (difference: +44)
+  Page 1: items=176 time=707.71 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x09cc2837da731d487ba5a7789ea7f35e20aa9fcf?chain_id=33139&limit=1000&page=0&include_balances=true
+
+============================================================
+Contract: 0x09cc2837da731d487ba5a7789ea7f35e20aa9fcf  Chain: 33139
+Endpoint: /nfts/transfers
+Description: ERC721 all transfers (initial)
+Total items: 207  Pages: 1  Total time: 512.83 ms
+❌ VALIDATION FAILED: Expected 215, got 207 (difference: -8)
+Meta: {"sortOrder":"desc","mode":"initial","sinceHours":24}
+  Page 1: items=207 time=512.83 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x09cc2837da731d487ba5a7789ea7f35e20aa9fcf&limit=1000&sort_order=desc&block_number_from=1&page=0
+
+---- Processing ERC721 0x0bdef3d84b72031dd38fed41d3202becb2e8aef3 on chain 33139 ----
+
+============================================================
+Contract: 0x0bdef3d84b72031dd38fed41d3202becb2e8aef3  Chain: 33139
+Endpoint: /nfts/owners/{address}
+Description: ERC721 collection owners with balances
+Total items: 666  Pages: 1  Total time: 277.51 ms
+❌ VALIDATION FAILED: Expected 255, got 666 (difference: +411)
+  Page 1: items=666 time=277.09 ms  url=https://insight.thirdweb.com/v1/nfts/owners/0x0bdef3d84b72031dd38fed41d3202becb2e8aef3?chain_id=33139&limit=1000&page=0&include_balances=true
+
+============================================================
+Contract: 0x0bdef3d84b72031dd38fed41d3202becb2e8aef3  Chain: 33139
+Endpoint: /nfts/transfers
+Description: ERC721 all transfers (initial)
+Total items: 2660  Pages: 3  Total time: 1601.67 ms
+❌ VALIDATION FAILED: Expected 2683, got 2660 (difference: -23)
+Meta: {"sortOrder":"desc","mode":"initial","sinceHours":24}
+  Page 1: items=1000 time=606.90 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0bdef3d84b72031dd38fed41d3202becb2e8aef3&limit=1000&sort_order=desc&block_number_from=1&page=0
+  Page 2: items=1000 time=519.66 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0bdef3d84b72031dd38fed41d3202becb2e8aef3&limit=1000&sort_order=desc&block_number_from=1&page=1
+  Page 3: items=660 time=475.04 ms  url=https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0bdef3d84b72031dd38fed41d3202becb2e8aef3&limit=1000&sort_order=desc&block_number_from=1&page=2
+
+---- Processing ERC20 0x00f4CE400130C9383115f3858F9CA54677426583 on chain 747 ----
+
+============================================================
+Contract: 0x00f4CE400130C9383115f3858F9CA54677426583  Chain: 747
+Endpoint: /tokens/owners
+Description: ERC20 token holders
+Total items: 133  Pages: 1  Total time: 353.94 ms
+❌ VALIDATION FAILED: Expected 149, got 133 (difference: -16)
+  Page 1: items=133 time=353.90 ms  url=https://insight.thirdweb.com/v1/tokens/owners?chain_id=747&contract_address=0x00f4CE400130C9383115f3858F9CA54677426583&limit=1000&page=0
+
+---- Processing ERC20 0x1b97100eA1D7126C4d60027e231EA4CB25314bdb on chain 747 ----
+
+============================================================
+Contract: 0x1b97100eA1D7126C4d60027e231EA4CB25314bdb  Chain: 747
+Endpoint: /tokens/owners
+Description: ERC20 token holders
+Total items: 345  Pages: 1  Total time: 203.94 ms
+❌ VALIDATION FAILED: Expected 352, got 345 (difference: -7)
+  Page 1: items=345 time=203.94 ms  url=https://insight.thirdweb.com/v1/tokens/owners?chain_id=747&contract_address=0x1b97100eA1D7126C4d60027e231EA4CB25314bdb&limit=1000&page=0
+
+---- Processing ERC20 0x1c80CE0D97B15e4f7a3914CABf60E88F97D6E806 on chain 747 ----
+
+============================================================
+Contract: 0x1c80CE0D97B15e4f7a3914CABf60E88F97D6E806  Chain: 747
+Endpoint: /tokens/owners
+Description: ERC20 token holders
+Total items: 56  Pages: 1  Total time: 147.00 ms
+❌ VALIDATION FAILED: Expected 39, got 56 (difference: +17)
+  Page 1: items=56 time=146.99 ms  url=https://insight.thirdweb.com/v1/tokens/owners?chain_id=747&contract_address=0x1c80CE0D97B15e4f7a3914CABf60E88F97D6E806&limit=1000&page=0
+
+---- Processing ERC20 0x2751dB789ab49e4f1CFA192831c19D8f40c708c9 on chain 747 ----
+
+============================================================
+Contract: 0x2751dB789ab49e4f1CFA192831c19D8f40c708c9  Chain: 747
+Endpoint: /tokens/owners
+Description: ERC20 token holders
+Total items: 49  Pages: 1  Total time: 160.17 ms
+❌ VALIDATION FAILED: Expected 51, got 49 (difference: -2)
+  Page 1: items=49 time=160.17 ms  url=https://insight.thirdweb.com/v1/tokens/owners?chain_id=747&contract_address=0x2751dB789ab49e4f1CFA192831c19D8f40c708c9&limit=1000&page=0
+
+---- Processing ERC20 0x3Af5B38519D2289eCE541B5e7DA4b53C26DBb07E on chain 747 ----
+
+============================================================
+Contract: 0x3Af5B38519D2289eCE541B5e7DA4b53C26DBb07E  Chain: 747
+Endpoint: /tokens/owners
+Description: ERC20 token holders
+Total items: 52  Pages: 1  Total time: 145.38 ms
+❌ VALIDATION FAILED: Expected 67, got 52 (difference: -15)
+  Page 1: items=52 time=145.38 ms  url=https://insight.thirdweb.com/v1/tokens/owners?chain_id=747&contract_address=0x3Af5B38519D2289eCE541B5e7DA4b53C26DBb07E&limit=1000&page=0
+
+
+🔬 BENCHMARK SUMMARY
+==================================================
+Total API calls: 87
+Total time: 33111.17 ms (33.11s)
+Average time per call: 380.59 ms
+
+🐌 Slowest query: 1101.62 ms
+   Contract: 0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240
+   Endpoint: /nfts/transfers
+   URL: https://insight.thirdweb.com/v1/nfts/transfers?chain_id=33139&contract_address=0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240&limit=1000&sort_order=desc&block_number_from=1&page=7
+
+🔍 VALIDATION SUMMARY:
+   Total validations: 21
+   ✅ Passed: 0
+   ❌ Failed: 21
+   ⚪ Skipped: 0
+
+❌ VALIDATION FAILURES:
+   0x1c26da604221466976beeb509698152ba8a3a13f (/tokens/owners): Expected 4993, got 4988 (-5)
+   0x1cd6edb761ed1d68c3cc3c5b9b3e9460887fd139 (/tokens/owners): Expected 2719, got 2727 (+8)
+   0x2b21d07c98905f48a71100af2b58c069be4d0a2a (/nfts/owners/{address}): Expected 1930, got 9458 (+7528)
+   0x2b21d07c98905f48a71100af2b58c069be4d0a2a (/nfts/transfers): Expected 13239, got 1544 (-11695)
+   0x3d72ddd35cadb4e5b22cdb20b36f98077be84284 (/tokens/owners): Expected 3740, got 3734 (-6)
+   0x487d52e1e07c0f39c4a3b78a53ac0953cd90db9b (/nfts/owners/{address}): Expected 776, got 1489 (+713)
+   0x487d52e1e07c0f39c4a3b78a53ac0953cd90db9b (/nfts/transfers): Expected 4195, got 4185 (-10)
+   0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240 (/nfts/owners/{address}): Expected 1615, got 6652 (+5037)
+   0x0178a9d0b0cba1b2ede3afdb6dd021db24ff4240 (/nfts/transfers): Expected 21589, got 21476 (-113)
+   0x0291e6c2094fb96628732a707be55a54b4228b5f (/nfts/owners/{address}): Expected 816, got 3333 (+2517)
+   0x0291e6c2094fb96628732a707be55a54b4228b5f (/nfts/transfers): Expected 7702, got 7528 (-174)
+   0x093414b375ece9ef24dfa3aa34ab14a4b4c244c9 (/nfts/owners/{address}): Expected 486, got 3333 (+2847)
+   0x09cc2837da731d487ba5a7789ea7f35e20aa9fcf (/nfts/owners/{address}): Expected 132, got 176 (+44)
+   0x09cc2837da731d487ba5a7789ea7f35e20aa9fcf (/nfts/transfers): Expected 215, got 207 (-8)
+   0x0bdef3d84b72031dd38fed41d3202becb2e8aef3 (/nfts/owners/{address}): Expected 255, got 666 (+411)
+   0x0bdef3d84b72031dd38fed41d3202becb2e8aef3 (/nfts/transfers): Expected 2683, got 2660 (-23)
+   0x00f4CE400130C9383115f3858F9CA54677426583 (/tokens/owners): Expected 149, got 133 (-16)
+   0x1b97100eA1D7126C4d60027e231EA4CB25314bdb (/tokens/owners): Expected 352, got 345 (-7)
+   0x1c80CE0D97B15e4f7a3914CABf60E88F97D6E806 (/tokens/owners): Expected 39, got 56 (+17)
+   0x2751dB789ab49e4f1CFA192831c19D8f40c708c9 (/tokens/owners): Expected 51, got 49 (-2)
+   0x3Af5B38519D2289eCE541B5e7DA4b53C26DBb07E (/tokens/owners): Expected 67, got 52 (-15)
+
+📊 Endpoint Statistics:
+
+  /tokens/owners:
+    Contracts tested: 8
+    Total pages: 17
+    Total items: 12,084
+    Avg time per contract: 561.06 ms
+    Total time: 4488.47 ms
+
+  /nfts/owners/{address}:
+    Contracts tested: 7
+    Total pages: 29
+    Total items: 25,107
+    Avg time per contract: 934.96 ms
+    Total time: 6544.71 ms
+
+  /nfts/transfers:
+    Contracts tested: 6
+    Total pages: 41
+    Total items: 37,600
+    Avg time per contract: 3680.12 ms
+    Total time: 22080.72 ms
+
+All benchmarks completed.

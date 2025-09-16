@@ -243,8 +243,10 @@ async function benchmarkErc721Owners(
 	let pages = 0;
 	const perPage: BenchmarkPageTiming[] = [];
 	const started = performance.now();
+	const uniqueOwners = new Set<string>(); // Track unique owner addresses across all pages
 	for (;;) {
 		const t0 = performance.now();
+		console.log(`  Fetching page ${page} for ERC721 owners...`);
 		const { json, url } = await httpGet(baseUrl, `/nfts/owners/${collectionAddress}`, {
 			chain_id: chainId,
 			limit,
@@ -252,16 +254,25 @@ async function benchmarkErc721Owners(
 			include_balances: true,
 		}, headers);
 		const t1 = performance.now();
+		console.log(`  Page ${page} completed in ${(t1 - t0).toFixed(0)}ms`);
 		
-		// Count owners based on API response structure
-		// NFT owners endpoint returns object with data array (same as token owners)
+		// Count unique owners from API response
+		// NFT owners endpoint returns object with data array containing owner records
 		let items = 0;
 		if (json?.data && Array.isArray(json.data)) {
-			items = json.data.length;
+			// Add each unique owner_address to the Set
+			for (const record of json.data) {
+				if (record.owner_address) {
+					uniqueOwners.add(record.owner_address.toLowerCase());
+				}
+			}
+			items = json.data.length; // Raw records on this page
 		} else {
 			// Debug unexpected response structure
 			debugApiResponse(json, url);
 		}
+		
+		console.log(`  Page ${page}: got ${items} records, unique owners: ${uniqueOwners.size}, total records so far: ${totalItems + items}`);
 		
 		perPage.push({ page: page + 1, items, ms: t1 - t0, url }); // Display as 1-based for user
 		totalItems += items;
@@ -272,25 +283,34 @@ async function benchmarkErc721Owners(
 			// NFT transfers with meta pagination info
 			const meta = json.data.meta;
 			hasNext = meta.page < (meta.total_pages - 1); // 0-based pagination
+			console.log(`  Pagination via meta: page=${meta.page}, total_pages=${meta.total_pages}, hasNext=${hasNext}`);
 		} else if (json?.data && Array.isArray(json.data)) {
 			// Simple data array (owners endpoints) - continue if we got a full page
 			hasNext = items === limit;
+			console.log(`  Pagination via array length: items=${items}, limit=${limit}, hasNext=${hasNext}`);
 		} else {
 			// Fallback - continue if we got a full page
 			hasNext = items === limit;
+			console.log(`  Pagination fallback: items=${items}, limit=${limit}, hasNext=${hasNext}`);
 		}
-		if (!hasNext || items === 0) break;
+		
+		if (!hasNext || items === 0) {
+			console.log(`  Breaking pagination loop: hasNext=${hasNext}, items=${items}`);
+			break;
+		}
+		
 		page += 1;
+		console.log(`  Continuing to page ${page}...`);
 		if (sleepMsBetweenPages > 0) await sleep(sleepMsBetweenPages);
 	}
 	const ended = performance.now();
 	
-	// Validate against expected data
+	// Validate against expected data using unique owner count
 	const contractKey = collectionAddress.toLowerCase();
 	const expectedCount = expectedData.tokenOwners[contractKey];
 	let validation: ValidationResult | undefined;
 	if (expectedCount !== undefined) {
-		validation = validateCount(expectedCount, totalItems);
+		validation = validateCount(expectedCount, uniqueOwners.size);
 	}
 	
 	return {
@@ -298,7 +318,7 @@ async function benchmarkErc721Owners(
 		chainId,
 		endpoint: '/nfts/owners/{address}',
 		description: 'ERC721 collection owners with balances',
-		totalItems,
+		totalItems: uniqueOwners.size, // Return unique owner count, not total records
 		pages,
 		totalMs: ended - started,
 		perPage,
@@ -322,6 +342,7 @@ async function benchmarkErc20Owners(
 	const started = performance.now();
 	for (;;) {
 		const t0 = performance.now();
+		console.log(`  Fetching page ${page} for ERC20 owners...`);
 		const { json, url } = await httpGet(baseUrl, '/tokens/owners', {
 			chain_id: chainId,
 			contract_address: contractAddress,
@@ -329,6 +350,7 @@ async function benchmarkErc20Owners(
 			page,
 		}, headers);
 		const t1 = performance.now();
+		console.log(`  Page ${page} completed in ${(t1 - t0).toFixed(0)}ms`);
 		
 		// Count owners based on API response structure from OpenAPI spec
 		// Token owners endpoint returns object with data array
@@ -340,6 +362,8 @@ async function benchmarkErc20Owners(
 			debugApiResponse(json, url);
 		}
 		
+		console.log(`  Page ${page}: got ${items} items, total so far: ${totalItems + items}`);
+		
 		perPage.push({ page: page + 1, items, ms: t1 - t0, url }); // Display as 1-based for user
 		totalItems += items;
 		pages += 1;
@@ -349,15 +373,24 @@ async function benchmarkErc20Owners(
 			// NFT transfers with meta pagination info
 			const meta = json.data.meta;
 			hasNext = meta.page < (meta.total_pages - 1); // 0-based pagination
+			console.log(`  Pagination via meta: page=${meta.page}, total_pages=${meta.total_pages}, hasNext=${hasNext}`);
 		} else if (json?.data && Array.isArray(json.data)) {
 			// Simple data array (owners endpoints) - continue if we got a full page
 			hasNext = items === limit;
+			console.log(`  Pagination via array length: items=${items}, limit=${limit}, hasNext=${hasNext}`);
 		} else {
 			// Fallback - continue if we got a full page
 			hasNext = items === limit;
+			console.log(`  Pagination fallback: items=${items}, limit=${limit}, hasNext=${hasNext}`);
 		}
-		if (!hasNext || items === 0) break;
+		
+		if (!hasNext || items === 0) {
+			console.log(`  Breaking pagination loop: hasNext=${hasNext}, items=${items}`);
+			break;
+		}
+		
 		page += 1;
+		console.log(`  Continuing to page ${page}...`);
 		if (sleepMsBetweenPages > 0) await sleep(sleepMsBetweenPages);
 	}
 	const ended = performance.now();
@@ -420,8 +453,10 @@ async function benchmarkErc721Transfers(
 	for (;;) {
 		const params = { ...baseParams, page };
 		const t0 = performance.now();
+		console.log(`  Fetching page ${page} for ERC721 transfers...`);
 		const { json, url } = await httpGet(baseUrl, '/nfts/transfers', params, headers);
 		const t1 = performance.now();
+		console.log(`  Page ${page} completed in ${(t1 - t0).toFixed(0)}ms`);
 		
 		// Count transfers based on API response structure
 		// NFT transfers endpoint returns nested data: { data: { data: [...], meta: {...} } }
@@ -433,6 +468,8 @@ async function benchmarkErc721Transfers(
 			debugApiResponse(json, url);
 		}
 		
+		console.log(`  Page ${page}: got ${items} items, total so far: ${totalItems + items}`);
+		
 		perPage.push({ page: page + 1, items, ms: t1 - t0, url }); // Display as 1-based for user
 		totalItems += items;
 		pages += 1;
@@ -442,15 +479,24 @@ async function benchmarkErc721Transfers(
 			// NFT transfers with meta pagination info
 			const meta = json.data.meta;
 			hasNext = meta.page < (meta.total_pages - 1); // 0-based pagination
+			console.log(`  Pagination via meta: page=${meta.page}, total_pages=${meta.total_pages}, hasNext=${hasNext}`);
 		} else if (json?.data && Array.isArray(json.data)) {
 			// Simple data array (owners endpoints) - continue if we got a full page
 			hasNext = items === limit;
+			console.log(`  Pagination via array length: items=${items}, limit=${limit}, hasNext=${hasNext}`);
 		} else {
 			// Fallback - continue if we got a full page
 			hasNext = items === limit;
+			console.log(`  Pagination fallback: items=${items}, limit=${limit}, hasNext=${hasNext}`);
 		}
-		if (!hasNext || items === 0) break;
+		
+		if (!hasNext || items === 0) {
+			console.log(`  Breaking pagination loop: hasNext=${hasNext}, items=${items}`);
+			break;
+		}
+		
 		page += 1;
+		console.log(`  Continuing to page ${page}...`);
 		if (sleepMsBetweenPages > 0) await sleep(sleepMsBetweenPages);
 	}
 	const ended = performance.now();
