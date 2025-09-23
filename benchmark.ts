@@ -375,7 +375,8 @@ async function benchmarkErc20Owners(
 	const perPage: BenchmarkPageTiming[] = [];
 	const started = performance.now();
 	const holderBalances = new Map<string, string>(); // Track holder addresses and their balances
-	
+	const duplicateLog: Array<{ address: string; page: number; existingBalance: string; newBalance: string }> = []; // Track duplicates
+
 	// Get token decimals - we'll extract from first owner record or use default
 	let tokenDecimals = 18; // Default to 18 decimals
 	let decimalsFound = false;
@@ -426,6 +427,19 @@ async function benchmarkErc20Owners(
 					}
 					
 					const tokenBalance = weiToTokens(weiBalance, tokenDecimals);
+
+					// Check for duplicate address
+					if (holderBalances.has(holderAddr)) {
+						const existingBalance = holderBalances.get(holderAddr)!;
+						duplicateLog.push({
+							address: holderAddr,
+							page: page,
+							existingBalance: existingBalance,
+							newBalance: tokenBalance
+						});
+						console.log(`  🔄 DUPLICATE DETECTED: ${holderAddr} on page ${page} (existing: ${existingBalance}, new: ${tokenBalance})`);
+					}
+
 					holderBalances.set(holderAddr, tokenBalance);
 				}
 			}
@@ -469,6 +483,17 @@ async function benchmarkErc20Owners(
 	const ended = performance.now();
 	
 	// Print all holders with their balances in CSV format
+	// Log duplicate summary
+	if (duplicateLog.length > 0) {
+		console.log(`\n  🔄 DUPLICATE SUMMARY: Found ${duplicateLog.length} duplicate addresses`);
+		console.log(`  Duplicate Details:`);
+		duplicateLog.forEach((dup, index) => {
+			console.log(`    ${index + 1}. ${dup.address} on page ${dup.page} (existing: ${dup.existingBalance}, new: ${dup.newBalance})`);
+		});
+	} else {
+		console.log(`\n  ✅ NO DUPLICATES: All ${holderBalances.size} addresses are unique`);
+	}
+
 	console.log(`\n  === Holder Balances CSV for ${contractAddress} (${holderBalances.size} total holders, ${tokenDecimals} decimals) ===`);
 	console.log(`holder_address,token_balance`);
 	const sortedHolders = Array.from(holderBalances.entries()).sort((a, b) => a[0].localeCompare(b[0]));
