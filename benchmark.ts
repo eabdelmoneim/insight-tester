@@ -127,6 +127,28 @@ function sleep(ms: number): Promise<void> {
 	return new Promise((r) => setTimeout(r, ms));
 }
 
+// Convert wei balance to token amount using decimals
+function weiToTokens(weiBalance: string, decimals: number): string {
+	try {
+		const wei = BigInt(weiBalance);
+		const divisor = BigInt(10) ** BigInt(decimals);
+		const tokens = wei / divisor;
+		const remainder = wei % divisor;
+		
+		// Handle decimal places
+		if (remainder === 0n) {
+			return tokens.toString();
+		} else {
+			const remainderStr = remainder.toString().padStart(decimals, '0');
+			const trimmedRemainder = remainderStr.replace(/0+$/, '');
+			return trimmedRemainder ? `${tokens.toString()}.${trimmedRemainder}` : tokens.toString();
+		}
+	} catch (err) {
+		console.warn(`Error converting wei balance ${weiBalance}:`, err);
+		return weiBalance; // Return original if conversion fails
+	}
+}
+
 // Debug helper
 function debugApiResponse(json: any, url: string): void {
 	console.log(`  🔍 DEBUG: Response structure for ${url}`);
@@ -352,6 +374,12 @@ async function benchmarkErc20Owners(
 	let pages = 0;
 	const perPage: BenchmarkPageTiming[] = [];
 	const started = performance.now();
+	const holderBalances = new Map<string, string>(); // Track holder addresses and their balances
+	
+	// Get token decimals - we'll extract from first owner record or use default
+	let tokenDecimals = 18; // Default to 18 decimals
+	let decimalsFound = false;
+	
 	for (;;) {
 		const t0 = performance.now();
 		console.log(`  Fetching page ${page} for ERC20 owners...`);
@@ -364,17 +392,50 @@ async function benchmarkErc20Owners(
 		const t1 = performance.now();
 		console.log(`  Page ${page} completed in ${(t1 - t0).toFixed(0)}ms`);
 		
-		// Count owners based on API response structure from OpenAPI spec
+		// Count owners and track balances based on API response structure from OpenAPI spec
 		// Token owners endpoint returns object with data array
 		let items = 0;
 		if (json?.data && Array.isArray(json.data)) {
+			// Store holder addresses and balances
+			for (const record of json.data) {
+				if (record.owner_address) {
+					const holderAddr = record.owner_address.toLowerCase();
+					const weiBalance = record.balance || '0'; // Use balance field from the API
+					
+					// If we haven't found decimals yet and this is the first page with data, 
+					// try to get decimals by calling /tokens with this owner address
+					if (!decimalsFound && page === 0) {
+						try {
+							console.log(`  Getting token decimals using owner ${holderAddr}...`);
+							const { json: tokenInfo } = await httpGet(baseUrl, '/tokens', {
+								chain_id: chainId,
+								token_address: contractAddress,
+								owner_address: holderAddr,
+								limit: 1,
+								metadata: true,
+							}, headers);
+							if (tokenInfo?.data?.[0]?.decimals !== undefined) {
+								tokenDecimals = Number(tokenInfo.data[0].decimals);
+								decimalsFound = true;
+								console.log(`  Token decimals: ${tokenDecimals}`);
+							}
+						} catch (err) {
+							console.warn(`  Could not fetch token decimals using owner address: ${err}`);
+							decimalsFound = true; // Don't try again
+						}
+					}
+					
+					const tokenBalance = weiToTokens(weiBalance, tokenDecimals);
+					holderBalances.set(holderAddr, tokenBalance);
+				}
+			}
 			items = json.data.length;
 		} else {
 			// Debug unexpected response structure
 			debugApiResponse(json, url);
 		}
 		
-		console.log(`  Page ${page}: got ${items} items, total so far: ${totalItems + items}`);
+		console.log(`  Page ${page}: got ${items} items, unique holders: ${holderBalances.size}, total items so far: ${totalItems + items}`);
 		
 		perPage.push({ page: page + 1, items, ms: t1 - t0, url }); // Display as 1-based for user
 		totalItems += items;
@@ -407,12 +468,21 @@ async function benchmarkErc20Owners(
 	}
 	const ended = performance.now();
 	
-	// Validate against expected data
+	// Print all holders with their balances in CSV format
+	console.log(`\n  === Holder Balances CSV for ${contractAddress} (${holderBalances.size} total holders, ${tokenDecimals} decimals) ===`);
+	console.log(`holder_address,token_balance`);
+	const sortedHolders = Array.from(holderBalances.entries()).sort((a, b) => a[0].localeCompare(b[0]));
+	sortedHolders.forEach(([holder, balance]) => {
+		console.log(`${holder},${balance}`);
+	});
+	console.log(`  === End of CSV ===\n`);
+	
+	// Validate against expected data using unique holder count
 	const contractKey = contractAddress.toLowerCase();
 	const expectedCount = expectedData.tokenOwners[contractKey];
 	let validation: ValidationResult | undefined;
 	if (expectedCount !== undefined) {
-		validation = validateCount(expectedCount, totalItems);
+		validation = validateCount(expectedCount, holderBalances.size);
 	}
 	
 	return {
@@ -420,7 +490,7 @@ async function benchmarkErc20Owners(
 		chainId,
 		endpoint: '/tokens/owners',
 		description: 'ERC20 token holders',
-		totalItems,
+		totalItems: holderBalances.size, // Return unique holder count, not total records
 		pages,
 		totalMs: ended - started,
 		perPage,
